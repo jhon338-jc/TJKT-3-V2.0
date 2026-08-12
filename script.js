@@ -21,8 +21,10 @@ const audio = new Audio();
 function toggleTheme() {
     const body = document.body;
     const icon = document.getElementById('theme-icon');
-    const iconNav = document.getElementById('theme-icon-nav');
 
+    // Tambah class transisi sementara
+    body.classList.add('theme-transitioning');
+    
     body.classList.toggle('light-mode');
 
     const isLight = body.classList.contains('light-mode');
@@ -33,12 +35,13 @@ function toggleTheme() {
         icon.classList.remove('fa-moon', 'fa-sun');
         icon.classList.add(newIcon);
     }
-    if (iconNav) {
-        iconNav.classList.remove('fa-moon', 'fa-sun');
-        iconNav.classList.add(newIcon);
-    }
 
     localStorage.setItem('theme', storageValue);
+    
+    // Hapus class transisi setelah animasi selesai
+    setTimeout(() => {
+        body.classList.remove('theme-transitioning');
+    }, 300);
 }
 
 // Toggle Music Player

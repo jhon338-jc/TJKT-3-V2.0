@@ -14,7 +14,7 @@
     --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.1);
     --font-cyber: 'Orbitron', sans-serif;
     --font-main: 'Rajdhani', sans-serif;
-    --transition-speed: 0.6s;
+    --transition-speed: 0.3s;
 }
 
 * {
@@ -38,6 +38,7 @@ body {
     overflow-x: hidden;
     width: 100%;
     min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Tambahin ini */
 }
 
 ::-webkit-scrollbar { width: 8px; }
@@ -1097,4 +1098,14 @@ body.light-mode ::-webkit-scrollbar-thumb:hover { background: #00838f; }
         padding: 10px 20px;
         font-size: 0.8rem;
     }
+}
+
+/* =========================================
+   11. SMOOTH THEME TRANSITION
+   ========================================= */
+body.theme-transitioning * {
+    transition: background-color 0.3s ease-in-out,
+                color 0.3s ease-in-out,
+                border-color 0.3s ease-in-out,
+                box-shadow 0.3s ease-in-out !important;
 }
