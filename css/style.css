@@ -1170,4 +1170,31 @@ body.theme-transitioning * {
                 color 0.3s ease-in-out,
                 border-color 0.3s ease-in-out,
                 box-shadow 0.3s ease-in-out !important;
+}/* =========================================
+   12. ANTI COPY & SELECT
+   ========================================= */
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+input, textarea {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* Keyboard shortcut hint */
+.keyboard-hint {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    font-size: 0.6rem;
+    opacity: 0.3;
+    z-index: 9999;
+    pointer-events: none;
+    font-family: var(--font-cyber);
 }
