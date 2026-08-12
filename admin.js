@@ -82,8 +82,15 @@ document.addEventListener('keydown', (e) => {
 
 // Logout
 function logout() {
-    if (confirm('Yakin ingin logout?')) {
-        location.reload();
+    if (confirm('Yakin ingin logout? Anda harus memasukkan PIN lagi untuk mengakses admin.')) {
+        window.location.href = 'admin.html';
+    }
+}
+
+// Back to home
+function goHome() {
+    if (confirm('Kembali ke halaman utama?')) {
+        window.location.href = '../index.html';
     }
 }
 

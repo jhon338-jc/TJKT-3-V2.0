@@ -250,6 +250,7 @@ body {
 .admin-menu {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .admin-menu a {
@@ -268,6 +269,36 @@ body {
     background: var(--neon);
     color: var(--dark);
     box-shadow: 0 0 15px var(--glow);
+}
+
+/* Home & Logout Buttons */
+.admin-menu .home-btn {
+    background: rgba(0, 229, 255, 0.15);
+    border: 1px solid var(--neon);
+    color: var(--neon) !important;
+}
+
+.admin-menu .home-btn:hover {
+    background: var(--neon);
+    color: var(--dark) !important;
+    box-shadow: 0 0 15px var(--glow);
+}
+
+.admin-menu .logout-btn {
+    background: rgba(255, 71, 87, 0.15);
+    border: 1px solid var(--danger);
+    color: var(--danger) !important;
+}
+
+.admin-menu .logout-btn:hover {
+    background: var(--danger);
+    color: white !important;
+    box-shadow: 0 0 15px rgba(255, 71, 87, 0.6);
+}
+
+.admin-menu .home-btn i,
+.admin-menu .logout-btn i {
+    margin-right: 5px;
 }
 
 .admin-content {
@@ -394,7 +425,6 @@ body {
     
     .admin-menu {
         gap: 8px;
-        flex-wrap: wrap;
         justify-content: center;
     }
     
