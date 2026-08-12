@@ -176,7 +176,7 @@ body {
 }
 
 /* =========================================
-   4. NAVIGATION BAR
+   4. NAVIGATION BAR (UPDATED)
    ========================================= */
 nav {
     display: flex;
@@ -189,6 +189,17 @@ nav {
     top: 0;
     z-index: 1000;
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 229, 255, 0.3);
+    transition: all 0.4s ease;
+}
+
+/* Efek navbar saat di-scroll */
+nav.scrolled {
+    background: rgba(1, 8, 22, 0.98);
+    border-bottom: 3px solid var(--neon);
+    box-shadow: 0 4px 30px var(--glow), 0 0 60px rgba(0, 229, 255, 0.4);
+    padding: 12px 8%;
 }
 
 .logo {
@@ -196,6 +207,8 @@ nav {
     color: var(--neon);
     font-size: 1.6rem;
     letter-spacing: 2px;
+    text-shadow: 0 0 15px var(--glow);
+    transition: 0.3s;
 }
 
 .menu {
@@ -212,11 +225,32 @@ nav {
     text-transform: uppercase;
     font-size: 0.8rem;
     transition: 0.3s;
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.menu a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--neon);
+    box-shadow: 0 0 10px var(--neon);
+    transition: width 0.3s ease;
 }
 
 .menu a:hover {
     color: var(--neon);
-    text-shadow: 0 0 10px var(--neon);
+    text-shadow: 0 0 15px var(--neon);
+    background: rgba(0, 229, 255, 0.1);
+}
+
+.menu a:hover::after {
+    width: 80%;
 }
 
 .theme-switch {
@@ -239,6 +273,205 @@ nav {
     color: var(--dark);
     box-shadow: 0 0 15px var(--glow);
     transform: scale(1.1);
+}
+
+/* =========================================
+   10. RESPONSIVE DESIGN (UPDATED - MOBILE NAVBAR FIX)
+   ========================================= */
+@media (max-width: 1200px) {
+    .grid-sections {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .siswa-grid,
+    .grid-sections {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .split-row {
+        gap: 60px;
+    }
+    
+    .galeri-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 130px;
+    }
+    
+    section {
+        scroll-margin-top: 140px;
+    }
+    
+    /* NAVBAR HP - DIPERBAIKI */
+    nav {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%;
+        flex-direction: column;
+        padding: 12px 0 8px 0;
+        gap: 0;
+        background: rgba(1, 8, 22, 0.97) !important;
+        border-bottom: 2px solid var(--neon) !important;
+        box-shadow: 0 4px 25px rgba(0, 229, 255, 0.5), 0 0 50px rgba(0, 229, 255, 0.3) !important;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+    }
+
+    /* Navbar scrolled di HP */
+    nav.scrolled {
+        border-bottom: 3px solid var(--neon) !important;
+        box-shadow: 0 4px 35px var(--glow), 0 0 70px rgba(0, 229, 255, 0.6) !important;
+        padding: 10px 0 6px 0;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+        text-shadow: 0 0 20px var(--neon), 0 0 40px var(--glow);
+    }
+
+    .menu {
+        width: 100%;
+        justify-content: center;
+        gap: 10px;
+        padding: 8px 5px;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        border-top: 1px solid rgba(0, 229, 255, 0.3);
+        background: rgba(0, 229, 255, 0.03);
+    }
+    
+    .menu a {
+        font-size: 0.7rem;
+        padding: 6px 8px;
+        border: 1px solid rgba(0, 229, 255, 0.2);
+        border-radius: 5px;
+        background: rgba(0, 229, 255, 0.05);
+    }
+    
+    .menu a:hover {
+        background: rgba(0, 229, 255, 0.2);
+        border-color: var(--neon);
+        box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+    }
+
+    .menu a::after {
+        display: none; /* Hide underline di mobile, ganti border */
+    }
+
+    .theme-switch {
+        display: flex;
+        width: 30px;
+        height: 30px;
+        margin: 5px auto;
+        order: -1; /* Theme switch di atas menu */
+    }
+
+    .grid-sections {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .siswa-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .galeri-grid {
+        grid-template-columns: 1fr;
+        padding: 20px 5%;
+    }
+    
+    .split-row {
+        gap: 30px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .node {
+        width: 160px;
+    }
+
+    .welcome-title {
+        font-size: 1.4rem;
+        padding: 0 15px;
+    }
+    
+    .cyber-button {
+        padding: 12px 25px;
+        font-size: 0.9rem;
+    }
+    
+    .hero-text h1 {
+        font-size: 1.5rem;
+    }
+    
+    .music-player-container {
+        bottom: 20px;
+        right: 20px;
+        gap: 10px;
+    }
+    
+    .floating-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1rem;
+    }
+    
+    .player-card {
+        width: 260px;
+        bottom: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        padding: 10px 0 6px 0;
+    }
+    
+    .logo {
+        font-size: 1.1rem;
+    }
+    
+    .menu {
+        gap: 6px;
+        padding: 6px 3px;
+    }
+    
+    .menu a {
+        font-size: 0.6rem;
+        padding: 5px 6px;
+    }
+    
+    .node {
+        width: 140px;
+        padding: 10px;
+    }
+    
+    .node .pic-box {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .grid-sections,
+    .siswa-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .about-card {
+        padding: 20px;
+    }
+    
+    .btn-sosmed {
+        padding: 10px 20px;
+        font-size: 0.8rem;
+    }
 }
 
 /* =========================================
