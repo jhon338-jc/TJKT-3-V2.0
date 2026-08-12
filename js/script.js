@@ -43,7 +43,10 @@ function toggleTheme() {
         body.classList.remove('theme-transitioning');
     }, 300);
 }
-
+// Easter Egg: Open Full Music Player
+function openFullMusic() {
+    window.open('musik/', '_blank');
+}
 // Toggle Music Player
 function togglePlayer() {
     const playerCard = document.getElementById('musicPlayer');

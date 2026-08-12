@@ -1,0 +1,324 @@
+/* =========================================
+   MUSIC PLAYER FULLSCREEN - TJKT 3
+   ========================================= */
+
+.musik-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 120px 20px 60px;
+    text-align: center;
+}
+
+.musik-header {
+    margin-bottom: 40px;
+}
+
+.musik-header h1 {
+    font-family: var(--font-cyber);
+    color: var(--neon);
+    font-size: 2rem;
+    text-shadow: 0 0 20px var(--glow);
+    letter-spacing: 3px;
+}
+
+.musik-header h1 i {
+    color: var(--warning);
+}
+
+.musik-header p {
+    margin-top: 10px;
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+/* Now Playing */
+.now-playing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.album-art {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--neon);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card);
+    box-shadow: 0 0 30px var(--glow);
+}
+
+.album-art i {
+    font-size: 3rem;
+    color: var(--neon);
+}
+
+.album-art i.spinning {
+    animation: spin 4s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.track-info h2 {
+    font-family: var(--font-cyber);
+    color: var(--neon);
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.track-info p {
+    opacity: 0.7;
+}
+
+/* Progress */
+.progress-section {
+    margin-bottom: 20px;
+}
+
+.progress-section .progress-container {
+    background: rgba(255,255,255,0.1);
+    height: 8px;
+    width: 80%;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.progress-section .progress-bar {
+    background: var(--neon);
+    height: 100%;
+    width: 0%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--neon);
+    transition: width 0.1s linear;
+}
+
+.progress-section .time-info {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 500px;
+    margin: 8px auto 0;
+    font-size: 0.8rem;
+    color: var(--neon);
+    font-family: var(--font-cyber);
+}
+
+/* Controls */
+.player-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.ctrl-btn {
+    background: none;
+    border: 2px solid var(--border);
+    color: white;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ctrl-btn:hover {
+    border-color: var(--neon);
+    color: var(--neon);
+    box-shadow: 0 0 15px var(--glow);
+}
+
+.ctrl-btn.play-btn {
+    width: 70px;
+    height: 70px;
+    font-size: 1.5rem;
+    background: var(--neon);
+    border-color: var(--neon);
+    color: var(--dark);
+    box-shadow: 0 0 25px var(--glow);
+}
+
+.ctrl-btn.play-btn:hover {
+    background: white;
+    box-shadow: 0 0 35px var(--neon);
+    transform: scale(1.1);
+}
+
+/* Lyrics */
+.lyrics-container {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    max-height: 250px;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.lyrics-scroll p {
+    padding: 8px 0;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    opacity: 0.4;
+}
+
+.lyrics-scroll p.active {
+    opacity: 1;
+    color: var(--neon);
+    font-size: 1.3rem;
+    text-shadow: 0 0 15px var(--glow);
+    font-weight: bold;
+}
+
+.no-lyric {
+    opacity: 0.5;
+    font-style: italic;
+}
+
+/* Playlist */
+.playlist-section {
+    margin-bottom: 30px;
+}
+
+.playlist-section h3 {
+    font-family: var(--font-cyber);
+    color: var(--neon);
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.playlist-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.playlist-track {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 15px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.playlist-track:hover {
+    background: rgba(0, 229, 255, 0.15);
+    border-color: var(--neon);
+}
+
+.playlist-track.active {
+    background: var(--neon);
+    border-color: var(--neon);
+    color: var(--dark);
+}
+
+.playlist-track .track-num {
+    font-family: var(--font-cyber);
+    font-size: 1.2rem;
+    width: 30px;
+}
+
+.playlist-track .track-title {
+    flex: 1;
+    text-align: left;
+    font-weight: bold;
+}
+
+.playlist-track .track-playing {
+    color: var(--neon);
+}
+
+.playlist-track.active .track-playing {
+    color: var(--dark);
+}
+
+/* Back Button */
+.back-home {
+    margin-top: 40px;
+}
+
+.back-home .btn-sosmed {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Light Mode */
+body.light-mode .lyrics-container {
+    background: var(--card-white);
+    border-color: rgba(0, 172, 193, 0.3);
+}
+
+body.light-mode .playlist-track {
+    background: var(--card-white);
+    border-color: rgba(0, 172, 193, 0.3);
+}
+
+body.light-mode .playlist-track.active {
+    background: var(--accent-light);
+    color: white;
+}
+
+body.light-mode .ctrl-btn {
+    border-color: rgba(0, 172, 193, 0.3);
+    color: var(--text-main);
+}
+
+body.light-mode .ctrl-btn.play-btn {
+    background: var(--accent-light);
+    border-color: var(--accent-light);
+}
+
+body.light-mode .lyrics-scroll p.active {
+    color: var(--accent-light);
+    text-shadow: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .musik-header h1 {
+        font-size: 1.4rem;
+    }
+    
+    .album-art {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .album-art i {
+        font-size: 2rem;
+    }
+    
+    .ctrl-btn {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .ctrl-btn.play-btn {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .lyrics-container {
+        max-height: 200px;
+    }
+}

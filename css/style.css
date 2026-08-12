@@ -742,6 +742,36 @@ footer#sosmed {
     font-weight: bold;
 }
 
+/* Easter Egg - Full Music Player */
+.easter-egg-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    margin-top: 10px;
+    border-top: 1px solid var(--border);
+    cursor: pointer;
+    transition: 0.3s;
+    opacity: 0.5;
+    font-size: 0.7rem;
+    font-family: var(--font-cyber);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.easter-egg-area:hover {
+    opacity: 1;
+    color: var(--warning);
+    background: rgba(255, 165, 2, 0.1);
+    border-radius: 0 0 15px 15px;
+    text-shadow: 0 0 10px rgba(255, 165, 2, 0.5);
+}
+
+.easter-egg-area i {
+    font-size: 0.9rem;
+}
+
 /* =========================================
    9. LIGHT MODE
    ========================================= */
