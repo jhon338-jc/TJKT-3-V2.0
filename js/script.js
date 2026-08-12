@@ -2,11 +2,11 @@
    1. GLOBAL VARIABLES & TRACK LIST
    ========================================= */
 const tracks = [
-    { title: "Ingatlah Hari Ini", src: "musik/lagu1.mp3" },
-    { title: "Kisah Kasih Di Sekolah", src: "musik/lagu2.mp3" },
-    { title: "Sampai Jumpa", src: "musik/lagu3.mp3" },
-    { title: "Sesuatu Di Jogja", src: "musik/lagu4.mp3" },
-    { title: "Kita Ke Sana", src: "musik/lagu5.mp3" }
+    { title: "Ingatlah Hari Ini", src: "assets/musik/lagu1.mp3" },
+    { title: "Kisah Kasih Di Sekolah", src: "assets/musik/lagu2.mp3" },
+    { title: "Sampai Jumpa", src: "assets/musik/lagu3.mp3" },
+    { title: "Sesuatu Di Jogja", src: "assets/musik/lagu4.mp3" },
+    { title: "Kita Ke Sana", src: "assets/musik/lagu5.mp3" }
 ];
 
 let currentTrackIndex = 0;
@@ -164,13 +164,11 @@ window.addEventListener("DOMContentLoaded", () => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
         document.body.classList.add('light-mode');
-        const icons = document.querySelectorAll('#theme-icon, #theme-icon-nav');
-        icons.forEach(icon => {
-            if (icon) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            }
-        });
+        const icon = document.getElementById('theme-icon');
+        if (icon) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
     }
 
     // Build Playlist
@@ -270,7 +268,7 @@ window.addEventListener("DOMContentLoaded", () => {
     setTimeout(reveal, 100);
 });
 
-// Handle page unload (reset scroll position bug on some mobile browsers)
+// Handle page unload
 window.addEventListener('beforeunload', () => {
     window.scrollTo(0, 0);
 });
