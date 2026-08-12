@@ -1,5 +1,5 @@
 /* =========================================
-   ADMIN PANEL JS - TJKT 3 (CRUD VERSION)
+   ADMIN PANEL JS - TJKT 3 (CRUD VERSION + API SYNC)
    ========================================= */
 
 const CORRECT_PIN = "030308";
@@ -45,7 +45,7 @@ function submitPin() {
             loginOverlay.classList.add('hidden');
             dashboard.style.display = 'block';
             document.body.style.overflow = 'auto';
-            renderAdminData();
+            fetchData().then(() => renderAdminData());
         }, 3000);
         
     } else {
@@ -133,14 +133,14 @@ function showAddSiswaForm() {
     `;
 }
 
-function addSiswaHandler() {
+async function addSiswaHandler() {
     const nama = document.getElementById('newNama').value;
     const nisn = document.getElementById('newNisn').value;
     const foto = document.getElementById('newFoto').value;
     if (nama && nisn) {
-        addSiswa({ nama, nisn, foto });
+        await addSiswa({ nama, nisn, foto });
         renderAdminData();
-        alert('Siswa berhasil ditambahkan! Refresh halaman utama untuk melihat perubahan.');
+        alert('✅ Siswa ditambahkan & TERSIMPAN di server! Semua device akan melihat data baru.');
     }
 }
 
@@ -163,22 +163,22 @@ function showEditSiswaForm(id) {
     `;
 }
 
-function updateSiswaHandler(id) {
+async function updateSiswaHandler(id) {
     const nama = document.getElementById('editNama').value;
     const nisn = document.getElementById('editNisn').value;
     const foto = document.getElementById('editFoto').value;
     if (nama && nisn) {
-        updateSiswa(id, { nama, nisn, foto });
+        await updateSiswa(id, { nama, nisn, foto });
         renderAdminData();
-        alert('Data siswa berhasil diupdate!');
+        alert('✅ Data diupdate & TERSIMPAN di server!');
     }
 }
 
-function deleteSiswaConfirm(id) {
+async function deleteSiswaConfirm(id) {
     if (confirm('Yakin hapus siswa ini?')) {
-        deleteSiswa(id);
+        await deleteSiswa(id);
         renderAdminData();
-        alert('Siswa berhasil dihapus!');
+        alert('✅ Siswa dihapus!');
     }
 }
 
@@ -232,14 +232,14 @@ function showAddStrukturForm() {
     `;
 }
 
-function addStrukturHandler() {
+async function addStrukturHandler() {
     const posisi = document.getElementById('newPosisi').value;
     const nama = document.getElementById('newNamaStruktur').value;
     const foto = document.getElementById('newFotoStruktur').value;
     if (posisi && nama) {
-        addStruktur({ posisi, nama, foto });
+        await addStruktur({ posisi, nama, foto });
         renderAdminData();
-        alert('Posisi berhasil ditambahkan!');
+        alert('✅ Posisi ditambahkan & TERSIMPAN di server!');
     }
 }
 
@@ -263,22 +263,22 @@ function showEditStrukturForm(id) {
     `;
 }
 
-function updateStrukturHandler(id) {
+async function updateStrukturHandler(id) {
     const posisi = document.getElementById('editPosisi').value;
     const nama = document.getElementById('editNamaStruktur').value;
     const foto = document.getElementById('editFotoStruktur').value;
     if (posisi && nama) {
-        updateStruktur(id, { posisi, nama, foto });
+        await updateStruktur(id, { posisi, nama, foto });
         renderAdminData();
-        alert('Data struktur berhasil diupdate!');
+        alert('✅ Data diupdate & TERSIMPAN di server!');
     }
 }
 
-function deleteStrukturConfirm(id) {
+async function deleteStrukturConfirm(id) {
     if (confirm('Yakin hapus posisi ini?')) {
-        deleteStruktur(id);
+        await deleteStruktur(id);
         renderAdminData();
-        alert('Posisi berhasil dihapus!');
+        alert('✅ Posisi dihapus!');
     }
 }
 
@@ -291,7 +291,8 @@ function renderAdminGaleri() {
         <h2><i class="fas fa-images"></i> MANAGE GALERI (${galeri.length})</h2>
         <div class="admin-card">
             <p>Total foto: ${galeri.length}</p>
-            <p style="opacity:0.7;font-size:0.8rem;">*Upload gambar manual ke folder assets/images/galeri/</p>
+            <button class="admin-btn" onclick="exportData()"><i class="fas fa-download"></i> EXPORT DATA</button>
+            <p style="opacity:0.7;font-size:0.7rem;margin-top:10px;">*Upload gambar manual ke folder assets/images/galeri/</p>
         </div>
     `;
 }
@@ -314,6 +315,19 @@ function renderAdminMusik() {
             </div>
         </div>
     `;
+}
+
+// Export data
+function exportData() {
+    const data = getData();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'data.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    alert('✅ Data diexport! Upload ke GitHub jika API Vercel belum aktif.');
 }
 
 // Smooth scroll
