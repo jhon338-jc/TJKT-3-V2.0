@@ -1,16 +1,16 @@
 /* =========================================
    1. GLOBAL VARIABLES & TRACK LIST
    ========================================= */
-// Load tracks from localStorage
 function loadTracks() {
     const musikData = getMusik();
+    if (!musikData || musikData.length === 0) return [];
     return musikData.map(m => ({
         title: m.judul,
         src: `assets/musik/${m.file}`
     }));
 }
 
-let tracks = loadTracks();
+let tracks = [];
 let currentTrackIndex = 0;
 let isPlaying = false;
 const audio = new Audio();
@@ -80,16 +80,15 @@ window.addEventListener('scroll', () => {
 });
 
 /* =========================================
-   3. RENDER DINAMIS DARI LOCALSTORAGE
+   3. RENDER DINAMIS DARI DATA
    ========================================= */
 
 // Render Struktur Kelas
 function renderStruktur() {
     const struktur = getStruktur();
     const orgContainer = document.querySelector('.org-container');
-    if (!orgContainer) return;
+    if (!orgContainer || !struktur || struktur.length === 0) return;
     
-    // Wali Kelas (row-org pertama)
     const waliKelas = struktur.find(s => s.posisi === "Wali Kelas");
     const ketuaKelas = struktur.find(s => s.posisi === "Ketua Kelas");
     const wakilKetua = struktur.find(s => s.posisi === "Wakil Ketua");
@@ -98,14 +97,12 @@ function renderStruktur() {
     const bendahara1 = struktur.find(s => s.posisi === "Bendahara 1");
     const bendahara2 = struktur.find(s => s.posisi === "Bendahara 2");
     
-    // Grid sections (selain posisi utama)
     const gridStruktur = struktur.filter(s => 
         !["Wali Kelas", "Ketua Kelas", "Wakil Ketua", "Sekretaris 1", "Sekretaris 2", "Bendahara 1", "Bendahara 2"].includes(s.posisi)
     );
     
     let html = '';
     
-    // Wali Kelas
     if (waliKelas) {
         html += `<div class="row-org"><div class="node reveal">
             <div class="pic-box"><img src="assets/images/struktur/${waliKelas.foto}.png" alt="${waliKelas.posisi}"></div>
@@ -114,7 +111,6 @@ function renderStruktur() {
         </div></div>`;
     }
     
-    // Ketua & Wakil
     if (ketuaKelas || wakilKetua) {
         html += '<div class="row-org">';
         if (ketuaKelas) html += `<div class="node reveal"><div class="pic-box"><img src="assets/images/struktur/${ketuaKelas.foto}.png" alt="${ketuaKelas.posisi}"></div><div class="label">${ketuaKelas.posisi}</div><div class="name">${ketuaKelas.nama}</div></div>`;
@@ -122,7 +118,6 @@ function renderStruktur() {
         html += '</div>';
     }
     
-    // Sekretaris & Bendahara
     if (sekretaris1 || sekretaris2 || bendahara1 || bendahara2) {
         html += '<div class="row-org split-row">';
         html += '<div class="group-pair">';
@@ -136,7 +131,6 @@ function renderStruktur() {
         html += '</div>';
     }
     
-    // Grid sections
     if (gridStruktur.length > 0) {
         html += '<div class="grid-sections">';
         gridStruktur.forEach(s => {
@@ -148,11 +142,10 @@ function renderStruktur() {
     orgContainer.innerHTML = html;
 }
 
-// Render Data Siswa
 function renderSiswa() {
     const siswa = getSiswa();
     const siswaGrid = document.querySelector('.siswa-grid');
-    if (!siswaGrid) return;
+    if (!siswaGrid || !siswa || siswa.length === 0) return;
     
     let html = '';
     siswa.forEach((s, i) => {
@@ -161,11 +154,10 @@ function renderSiswa() {
     siswaGrid.innerHTML = html;
 }
 
-// Render Galeri
 function renderGaleri() {
     const galeri = getGaleri();
     const galeriGrid = document.querySelector('.galeri-grid');
-    if (!galeriGrid) return;
+    if (!galeriGrid || !galeri || galeri.length === 0) return;
     
     let html = '';
     galeri.forEach(g => {
@@ -174,13 +166,10 @@ function renderGaleri() {
     galeriGrid.innerHTML = html;
 }
 
-// Render Playlist
 function renderPlaylist() {
-    const musikData = getMusik();
-    const playlistContainer = document.getElementById('playlist');
-    if (!playlistContainer) return;
-    
     tracks = loadTracks();
+    const playlistContainer = document.getElementById('playlist');
+    if (!playlistContainer || tracks.length === 0) return;
     
     playlistContainer.innerHTML = "";
     tracks.forEach((track, index) => {
@@ -197,6 +186,14 @@ function renderPlaylist() {
         });
         playlistContainer.appendChild(item);
     });
+}
+
+function refreshAllData() {
+    renderStruktur();
+    renderSiswa();
+    renderGaleri();
+    renderPlaylist();
+    setTimeout(reveal, 200);
 }
 
 /* =========================================
@@ -241,27 +238,19 @@ function playPauseTrack() {
 function nextTrack() {
     currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
     loadTrack(currentTrackIndex);
-    if (isPlaying) {
-        audio.play().catch(e => console.log(e));
-    }
+    if (isPlaying) audio.play().catch(e => console.log(e));
 }
 
 function prevTrack() {
     currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
     loadTrack(currentTrackIndex);
-    if (isPlaying) {
-        audio.play().catch(e => console.log(e));
-    }
+    if (isPlaying) audio.play().catch(e => console.log(e));
 }
 
 function updatePlaylistActive() {
     const items = document.querySelectorAll('.playlist-item');
     items.forEach((item, idx) => {
-        if (idx === currentTrackIndex) {
-            item.classList.add('active');
-        } else {
-            item.classList.remove('active');
-        }
+        item.classList.toggle('active', idx === currentTrackIndex);
     });
 }
 
@@ -275,16 +264,18 @@ function formatTime(seconds) {
 /* =========================================
    5. INITIALIZATION
    ========================================= */
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", async () => {
     
-    // Show body
     document.body.style.visibility = 'visible';
     
-    // RENDER SEMUA DATA DARI LOCALSTORAGE
-    renderStruktur();
-    renderSiswa();
-    renderGaleri();
-    renderPlaylist();
+    // TUNGGU DATA DARI API
+    await fetchData();
+    
+    // RENDER SEMUA
+    refreshAllData();
+    
+    // Load first track
+    if (tracks.length > 0) loadTrack(0);
     
     const overlay = document.getElementById('welcome-overlay');
     const startBtn = document.getElementById('startBtn');
@@ -300,9 +291,6 @@ window.addEventListener("DOMContentLoaded", () => {
             icon.classList.add('fa-sun');
         }
     }
-
-    // Load first track
-    loadTrack(0);
 
     // Auto focus untuk keyboard Enter
     document.addEventListener('keydown', (e) => {
@@ -326,17 +314,18 @@ window.addEventListener("DOMContentLoaded", () => {
             startBtn.addEventListener('click', () => {
                 overlay.classList.add('fade-out');
                 
-                // Start music
                 isPlaying = true;
-                audio.play().then(() => {
-                    const playIcon = document.getElementById('playIcon');
-                    if (playIcon) {
-                        playIcon.classList.remove('fa-play');
-                        playIcon.classList.add('fa-pause');
-                    }
-                }).catch(error => {
-                    console.log("Browser blocked autoplay:", error);
-                });
+                if (tracks.length > 0) {
+                    audio.play().then(() => {
+                        const playIcon = document.getElementById('playIcon');
+                        if (playIcon) {
+                            playIcon.classList.remove('fa-play');
+                            playIcon.classList.add('fa-pause');
+                        }
+                    }).catch(error => {
+                        console.log("Browser blocked autoplay:", error);
+                    });
+                }
 
                 setTimeout(() => {
                     overlay.style.display = 'none';
@@ -367,7 +356,6 @@ window.addEventListener("DOMContentLoaded", () => {
         if (durTime) durTime.innerText = formatTime(audio.duration);
     });
 
-    // Progress bar click
     const progressContainer = document.getElementById('progressContainer');
     if (progressContainer) {
         progressContainer.addEventListener('click', (e) => {
@@ -378,14 +366,11 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Scroll Reveal
     window.addEventListener("scroll", reveal, { passive: true });
     
-    // Initial reveal check
     setTimeout(reveal, 100);
 });
 
-// Handle page unload
 window.addEventListener('beforeunload', () => {
     window.scrollTo(0, 0);
 });
