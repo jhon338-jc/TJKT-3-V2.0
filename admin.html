@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - TJKT 3</title>
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- LOGIN OVERLAY -->
+    <div id="login-overlay">
+        <div class="login-box">
+            <div class="login-header">
+                <i class="fas fa-shield-haltered"></i>
+                <h1>ADMIN ACCESS</h1>
+                <p>Masukkan PIN untuk melanjutkan</p>
+            </div>
+            
+            <div class="pin-input-container">
+                <div class="pin-display">
+                    <input type="password" id="pinInput" maxlength="6" placeholder="••••••" autofocus>
+                </div>
+                <div class="pin-keypad">
+                    <button onclick="addPin('1')">1</button>
+                    <button onclick="addPin('2')">2</button>
+                    <button onclick="addPin('3')">3</button>
+                    <button onclick="addPin('4')">4</button>
+                    <button onclick="addPin('5')">5</button>
+                    <button onclick="addPin('6')">6</button>
+                    <button onclick="addPin('7')">7</button>
+                    <button onclick="addPin('8')">8</button>
+                    <button onclick="addPin('9')">9</button>
+                    <button onclick="clearPin()" class="clear-btn">C</button>
+                    <button onclick="addPin('0')">0</button>
+                    <button onclick="submitPin()" class="enter-btn">→</button>
+                </div>
+            </div>
+            
+            <div id="login-error" class="error-message"></div>
+            
+            <div class="loading-bar-login" id="loadingBarLogin">
+                <div class="loading-progress-login"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD (Tersembunyi dulu) -->
+    <div id="admin-dashboard" style="display: none;">
+        <nav class="admin-nav">
+            <div class="admin-logo">
+                <i class="fas fa-crown"></i> ADMIN TJKT 3
+            </div>
+            <div class="admin-menu">
+                <a href="#musik" class="active">MUSIK</a>
+                <a href="#galeri">GALERI</a>
+                <a href="#siswa">SISWA</a>
+                <a href="#struktur">STRUKTUR</a>
+                <a href="#" onclick="logout()">LOGOUT</a>
+            </div>
+        </nav>
+
+        <div class="admin-content">
+            <section id="musik" class="admin-section">
+                <h2><i class="fas fa-music"></i> MANAGE MUSIK</h2>
+                <div class="admin-card">
+                    <p>Kelola playlist musik di halaman utama</p>
+                    <button class="admin-btn"><i class="fas fa-plus"></i> Tambah Lagu</button>
+                    <div class="music-list">
+                        <div class="music-item">
+                            <span>1. Ingatlah Hari Ini</span>
+                            <div>
+                                <button class="btn-edit"><i class="fas fa-edit"></i></button>
+                                <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <div class="music-item">
+                            <span>2. Kisah Kasih Di Sekolah</span>
+                            <div>
+                                <button class="btn-edit"><i class="fas fa-edit"></i></button>
+                                <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <div class="music-item">
+                            <span>3. Sampai Jumpa</span>
+                            <div>
+                                <button class="btn-edit"><i class="fas fa-edit"></i></button>
+                                <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="galeri" class="admin-section">
+                <h2><i class="fas fa-images"></i> MANAGE GALERI</h2>
+                <div class="admin-card">
+                    <p>Kelola foto galeri di halaman utama</p>
+                    <button class="admin-btn"><i class="fas fa-plus"></i> Tambah Foto</button>
+                    <p style="margin-top: 15px; opacity: 0.7;">Total foto: 20</p>
+                </div>
+            </section>
+
+            <section id="siswa" class="admin-section">
+                <h2><i class="fas fa-users"></i> MANAGE SISWA</h2>
+                <div class="admin-card">
+                    <p>Kelola data siswa di halaman utama</p>
+                    <button class="admin-btn"><i class="fas fa-plus"></i> Tambah Siswa</button>
+                    <p style="margin-top: 15px; opacity: 0.7;">Total siswa: 33</p>
+                </div>
+            </section>
+
+            <section id="struktur" class="admin-section">
+                <h2><i class="fas fa-sitemap"></i> MANAGE STRUKTUR</h2>
+                <div class="admin-card">
+                    <p>Kelola struktur organisasi kelas</p>
+                    <button class="admin-btn"><i class="fas fa-plus"></i> Tambah Posisi</button>
+                </div>
+            </section>
+        </div>
+
+        <div class="admin-footer">
+            <p>&copy; 2027 Admin Panel - TJKT 3 SMK NEGERI 1 PAGELARAN</p>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
